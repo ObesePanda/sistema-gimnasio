@@ -204,12 +204,21 @@ export default {
                 );
                 this.miembros = respuesta.map(m => ({
                     id: m.id,
-                    text: `${m.nombre} / ${m.matricula} - ${m.email}`
+                    text: ` Membresia: ${m.matricula} -  ${m.nombre}  `
                 }));
             } catch (error) {
                 console.error("Error cargando miembros:", error);
             }
             this.cargando = false;
+        },
+
+        mostrarExito(mensaje) {
+            this.mensaje = { texto: mensaje, color: "success" };
+            this.mostrarMensaje = true;
+        },
+        mostrarError(mensaje) {
+            this.mensaje = { texto: mensaje, color: "error" };
+            this.mostrarMensaje = true;
         },
 
         async cargarRutinas() {

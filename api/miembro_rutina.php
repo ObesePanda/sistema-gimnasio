@@ -12,6 +12,9 @@ include_once "funciones_miembro_rutinas.php";
 $metodo = $payload->metodo;
 
 switch ($metodo) {
+    case "get_todas":
+        echo json_encode(obtenerRutinas());
+        break;
     case "asignar":
         echo json_encode(asignarRutinaMiembro($payload->asignacion));
         break;
@@ -24,4 +27,8 @@ switch ($metodo) {
     case "desactivar":
         echo json_encode(desactivarRutina($payload->id));
         break;
+    case "activar":
+        echo json_encode(activarRutina($payload->id));
+        break;
+
 }

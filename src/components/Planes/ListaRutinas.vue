@@ -248,7 +248,7 @@ export default {
         },
 
         asignarRutina(rutina) {
-            this.$router.push(`/rutinas/asignar/${rutina.id}`)
+            this.$router.push(`/asignar-rutina`)
         },
 
         eliminarRutina(rutina) {

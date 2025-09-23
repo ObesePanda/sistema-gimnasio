@@ -52,7 +52,19 @@ function obtenerRutinasActivas()
 
     return selectQuery($sentencia);
 }
+function obtenerRutinas()
+{
+    $sentencia = "SELECT mr.*, r.nombre as rutina_nombre, 
+                         CONCAT(m.nombre) as miembro_nombre,
+                         CONCAT(i.nombre) as instructor_nombre
+                  FROM miembro_rutinas mr
+                  JOIN rutinas r ON mr.rutina_id = r.id
+                  JOIN miembros m ON mr.miembro_id = m.id
+                  JOIN instructores i ON mr.asignada_por = i.id
+                  ORDER BY mr.fecha_inicio DESC";
 
+    return selectQuery($sentencia);
+}
 function desactivarRutina($id)
 {
     $sentencia = "UPDATE miembro_rutinas SET activa = FALSE WHERE id = ?";
@@ -87,3 +99,7 @@ function obtenerTodasAsignaciones()
 
     return selectQuery($sentencia);
 }
+
+
+
+

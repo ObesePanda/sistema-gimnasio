@@ -543,7 +543,7 @@
                                                     item-text="nombre" item-value="id" label="Seleccionar Miembro"
                                                     :rules="[v => !!v || 'Seleccione un miembro']" required>
                                                     <template v-slot:item="{ item }">
-                                                        {{ item.nombre }} - {{ item.email }}
+                                                        Membresia: {{ item.matricula }} - {{ item.nombre }} 
                                                     </template>
                                                 </v-autocomplete>
                                             </v-col>

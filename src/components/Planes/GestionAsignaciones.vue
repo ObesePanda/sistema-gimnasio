@@ -70,14 +70,7 @@
 
                 <!-- Acciones -->
                 <template v-slot:[`item.acciones`]="{ item }">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn icon @click="verDetalles(item)" v-bind="attrs" v-on="on" color="info">
-                                <v-icon>mdi-eye</v-icon>
-                            </v-btn>
-                        </template>
-                        <span>Ver detalles</span>
-                    </v-tooltip>
+                    
 
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
@@ -246,6 +239,28 @@ export default {
     },
 
     methods: {
+        async toggleEstado(asignacion) {
+            try {
+                const metodo = asignacion.activa ? "desactivarRutina" : "activarRutina";
+                const payload = { metodo, id: asignacion.id };
+
+                const resultado = await HttpService.registrar(payload, "miembro_rutina.php");
+
+                if (resultado.success) {
+                    asignacion.activa = !asignacion.activa;
+                    this.mostrarMensaje = true;
+                    this.mensaje = {
+                        texto: asignacion.activa ? 'Rutina reactivada correctamente' : 'Rutina pausada correctamente',
+                        color: 'success'
+                    };
+                } else {
+                    this.mostrarError(resultado.message);
+                }
+            } catch (error) {
+                this.mostrarError('Error cambiando estado');
+            }
+        }
+        ,
         fechaFormateada(fecha) {
             return formatearFechaHora(fecha);
         },
@@ -253,7 +268,7 @@ export default {
             this.cargando = true;
             try {
                 const respuesta = await HttpService.obtenerConDatos(
-                    { metodo: "get_activas" },
+                    { metodo: "get_todas" },
                     "miembro_rutina.php"
                 );
                 this.asignaciones = respuesta;
@@ -271,7 +286,7 @@ export default {
                 );
                 this.miembros = respuesta.map(m => ({
                     id: m.id,
-                    text: `${m.nombre} ${m.apellido} - ${m.matricula}`
+                    text: `Membresia: ${m.matricula} - ${m.nombre}`
                 }));
             } catch (error) {
                 console.error("Error cargando miembros:", error);
@@ -305,6 +320,13 @@ export default {
                 const pageWidth = doc.internal.pageSize.getWidth();
                 const margin = 20;
                 const contentWidth = pageWidth - (margin * 2);
+
+                if (!asignacion.activa) {
+                    doc.setFontSize(60);
+                    doc.setTextColor(200, 0, 0);
+                    doc.setFont(undefined, 'bold');
+                    doc.text("INACTIVA", pageWidth / 2, 150, { align: 'center', angle: 45 });
+                }
 
                 // --- ENCABEZADO ---
                 doc.setFillColor(41, 128, 185);
