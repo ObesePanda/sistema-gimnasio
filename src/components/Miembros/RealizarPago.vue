@@ -121,12 +121,17 @@ export default {
     },
 
     esFechaDiferente() {
+      if (!this.fechaSeleccionada) return false;
 
-      const fechaSelec = this.fechaSeleccionada;
-      const hoy = new Date();
-      const hoyFormateado = hoy.toISOString().split('T')[0];
+    
+      const ahora = new Date();
+      const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
 
-      return fechaSelec !== hoyFormateado;
+    
+      const [year, month, day] = this.fechaSeleccionada.split('-');
+      const fechaSelec = new Date(year, month - 1, day);
+
+      return fechaSelec.getTime() !== hoy.getTime();
     },
 
 
