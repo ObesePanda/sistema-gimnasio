@@ -127,7 +127,7 @@
       <div class="drawer-footer">
         <v-divider class="divider-custom"></v-divider>
         <div class="pa-3 text-center version-text">
-          Bamboo Management Suite v1.5.0
+          Bamboo Management Suite v2.0.0
         </div>
       </div>
     </v-navigation-drawer>

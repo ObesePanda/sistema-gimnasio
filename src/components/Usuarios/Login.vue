@@ -18,7 +18,7 @@
       <div class="system-info-section" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);">
         <div class="system-info-content">
           <div class="logo-container">
-            <v-img src="https://i.ibb.co/tpBKypzH/LOGOBAMBO.png" contain width="320" class="elevation-3"></v-img>
+            <v-img :src="logoBambo" contain width="320" class="elevation-3"></v-img>
           </div>
 
           <h1 class="system-name">Sistema de Gestión de Gimnasio</h1>
@@ -47,7 +47,7 @@
           </div>
 
           <div class="version-info mb-5">
-            Versión 1.5 - Bamboo Management Suite
+            Versión 2.0 - Bamboo Management Suite
           </div>
         </div>
       </div>
@@ -120,11 +120,13 @@
 
 <script>
 import HttpService from '../../Servicios/HttpService'
+import logoBambo from '@/assets/img/LOGOBAMBO.png'
 
 export default {
   name: "Login",
 
   data: () => ({
+    logoBambo,
     usuario: "",
     password: "",
     mensaje: {
